@@ -1,0 +1,12 @@
+# nome do arquivo sempre minúsculo
+<Incrementador>:
+    orientation: 'vertical'
+    Button:
+        text: 'Incrementar'
+        font_size: 30
+        # à direita do : a linguagem interpreta o código python
+        on_release: label.text = str(int(label.text)+1)
+    Label:
+        # atribuida ID para as propriedade de um widget possa ser acessada de outro
+        id: label
+        text: '1'
