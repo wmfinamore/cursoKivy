@@ -1,13 +1,18 @@
 from cgitb import text
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.screenmanager import ScreenManager, Screen
 
 
-class Tarefas(BoxLayout):
-    def __init__(self, tarefas, **kwargs): # key word arguments
+class Gerenciador(ScreenManager):
+    pass
+
+
+class Tarefas(Screen):
+    def __init__(self, tarefas=['',], **kwargs): # key word arguments
         super().__init__(**kwargs)
-        for tarefa in tarefas:
-            self.ids.box.add_widget(Tarefa(text=tarefa))
+        # for tarefa in tarefas:
+        #     self.ids.box.add_widget(Tarefa(text=tarefa))
             
     def addWidget(self):
         texto = self.ids.texto.text
@@ -23,7 +28,7 @@ class Tarefa(BoxLayout):
 
 class Test(App):
     def build(self):
-        return Tarefas(['Fazer compras', 'Buscar filho', 'Molhar plantas', 'Estudar Inglês', 'Estudaqr Espanhol'])
+        return Gerenciador()
     
 
 Test().run()
