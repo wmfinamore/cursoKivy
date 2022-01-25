@@ -26,6 +26,16 @@
 <Tarefas>:
     BoxLayout:
         orientation: 'vertical'
+        ActionBar:
+            ActionView:
+                ActionPrevious:
+                    title: 'Tarefas'
+                    on_release: app.root.current= 'menu'
+                ActionButton:
+                    text: 'Sair'
+                ActionSeparator:
+                ActionButton:
+                    text: 'Menu'
         ScrollView:
             BoxLayout:
                 id: box
