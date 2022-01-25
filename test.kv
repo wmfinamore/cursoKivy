@@ -1,10 +1,27 @@
 <Gerenciador>:
-    Screen:
-        Button:
-            text: 'Ver tarefas'
-            on_release: root.current = 'tarefas'
+    Menu:
+        name: 'menu'
     Tarefas:
         name: 'tarefas'
+
+<Menu>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 200
+        spacing: 10
+        Image:
+            source: 'logo-kivy.png'
+            size_hint_y: None
+            height: 100
+            allow_stretch: True # estica a imagem fora dos limites de sua resolução
+        Button:
+            text: 'Tarefas'
+            on_release: app.root.current = 'tarefas'
+        Button:
+            text: 'Assistente'
+        Button:
+            text: 'Sair'
+            on_release: app.stop()
 
 <Tarefas>:
     BoxLayout:

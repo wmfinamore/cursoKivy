@@ -8,6 +8,10 @@ class Gerenciador(ScreenManager):
     pass
 
 
+class Menu(Screen):
+    pass
+
+
 class Tarefas(Screen):
     def __init__(self, tarefas=['',], **kwargs): # key word arguments
         super().__init__(**kwargs)
