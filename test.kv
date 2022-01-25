@@ -33,9 +33,7 @@
                     on_release: app.root.current= 'menu'
                 ActionButton:
                     text: 'Sair'
-                ActionSeparator:
-                ActionButton:
-                    text: 'Menu'
+                    on_release: app.stop()
         ScrollView:
             BoxLayout:
                 id: box
