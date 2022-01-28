@@ -1,5 +1,13 @@
+# Pull base image
 FROM ubuntu:20.04
 
+#Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+#Set work dir
+RUN mkdir /code
+WORKDIR /code
 
 RUN apt update -qq > /dev/null \
     && DEBIAN_FRONTEND=noninteractive apt install -qq --yes --no-install-recommends \
@@ -8,7 +16,6 @@ RUN apt update -qq > /dev/null \
 ENV LANG="en_US.UTF-8" \
     LANGUAGE="en_US.UTF-8" \
     LC_ALL="en_US.UTF-8"
-
 
 # system requirements to build most of the recipes
 RUN apt update -qq > /dev/null \
@@ -34,22 +41,14 @@ RUN apt update -qq > /dev/null \
     zip \
     zlib1g-dev
 
-RUN groupadd -r test && useradd -mg test test \
-    && echo test ALL=NOPASSWD: ALL >> /etc/sudoers
 
-USER test
+#Install dependencies
+# COPY Pipfile Pipfile.lock /code/
+# RUN pip install pipenv && pipenv install --system && pipenv install --upgrade Cython==0.29.19 wheel
+RUN pip3 install --user --upgrade Cython==0.29.19 wheel
 
-ENV PATH=/home/test/.local/bin:/usr/lib/ccache:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
-    LANG=C.UTF-8 \
-    LC_ALL=C.UTF-8
+#Copy project
+COPY . /code/
 
-RUN mkdir /home/test/.ccache
-RUN pip3 install --user -U pip
-RUN pip install --user -U pip
-# RUN pip3 install --user https://github.com/kivy/buildozer/archive/master.zip
-RUN git clone https://github.com/kivy/buildozer /home/test/buildozer
-# RUN python3 /home/test/buildozer/setup.py build
-RUN pip install --user -e /home/test/buildozer
-RUN pip3 install --user --upgrade Cython==0.29.19
-WORKDIR /home/test/project
-CMD buildozer android debug
+RUN git clone https://github.com/kivy/buildozer.git && cd buildozer 
+# RUN sudo python3 setup.py install
